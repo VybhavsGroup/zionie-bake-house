@@ -24,6 +24,20 @@ main .page-hero { padding: clamp(3.5rem, 7vw, 5rem) 0 clamp(2rem, 4vw, 3rem); }
 """
 
 
+js += """
+/* single-file additions */
+/* Each gallery link points at the very file already embedded as a data URI on
+   its own thumbnail, so re-embedding it in the href would duplicate ~4 MB of
+   base64 for nothing. Repoint the links at the thumbnails instead. Appended
+   after main.js, which is a self-closing IIFE, and runs with the DOM parsed
+   because the bundle's <script> sits at the end of <body>. */
+document.querySelectorAll('a.gallery-link[href^="images/"]').forEach(function (a) {
+  var thumb = a.querySelector('img');
+  if (thumb) a.href = thumb.src;
+});
+"""
+
+
 def main_content(name: str) -> str:
     html = (BASE / name).read_text()
     return re.search(r'<main id="main">(.*)</main>', html, re.S).group(1)
@@ -87,4 +101,7 @@ doc = f"""<!DOCTYPE html>
 
 OUT.write_text(doc)
 print(f'wrote {OUT} ({len(doc):,} bytes)')
-print(f'unembedded image refs: {doc.count(chr(34) + "images/") + doc.count("src=" + chr(34) + "images/")}')
+stray_src = doc.count('src="images/')
+gallery_links = doc.count('href="images/')
+print(f'unembedded src refs: {stray_src} (must be 0)')
+print(f'gallery links repointed at runtime: {gallery_links}')

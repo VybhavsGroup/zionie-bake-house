@@ -37,9 +37,10 @@ python3 -m http.server 8000
 
 ## Gotchas
 
-- **Phone number is hardcoded in 14 places across all six pages** (as display
-  text `+91 77089 15271` and in `wa.me/917708915271` links). Change it
-  everywhere or the order buttons break silently.
+- **Phone number is hardcoded in 15 places** — all six pages plus `js/main.js`
+  (`WHATSAPP_NUMBER`). In the pages it appears as display text
+  `+91 77089 15271` and in `wa.me/917708915271` links. Change it everywhere
+  or the order buttons break silently.
 - **Ordering has no backend.** Forms build a prefilled WhatsApp message and open
   `wa.me`. Don't introduce anything needing a server.
 - **Image filenames are not content-hashed**, so keep names stable when
