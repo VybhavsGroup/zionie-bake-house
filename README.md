@@ -23,7 +23,7 @@ Open `index.html` in a browser or serve the folder with any static server:
 python3 -m http.server 8000
 ```
 
-`build-onefile.py` bundles the entire site (styles, scripts and photos inlined)
+`tools/build-onefile.py` bundles the entire site (styles, scripts and photos inlined)
 into a single portable HTML file.
 
 ## Contact

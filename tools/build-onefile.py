@@ -1,6 +1,6 @@
 """Bundle the Zionie Bake House site into one self-contained HTML file.
 
-Usage: python3 build-onefile.py   (from any directory)
+Usage: python3 tools/build-onefile.py   (from any directory)
 
 Combines the five pages into a single scrolling page (Home / Menu /
 Classes / Reviews / Contact), inlines styles.css and main.js, embeds
@@ -11,7 +11,7 @@ import base64
 import re
 import pathlib
 
-BASE = pathlib.Path(__file__).resolve().parent
+BASE = pathlib.Path(__file__).resolve().parent.parent  # repo root; script lives in tools/
 OUT = BASE.parent / 'zionie-bake-house.html'
 
 css = (BASE / 'css' / 'styles.css').read_text()

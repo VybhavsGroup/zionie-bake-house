@@ -1,0 +1,9 @@
+# Cloudflare Pages — custom response headers.
+# Caching is deliberately left to Cloudflare's defaults: filenames are not
+# content-hashed, so a long max-age would serve stale photos for weeks
+# after a menu or gallery update.
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
